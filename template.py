@@ -18,12 +18,14 @@ list_of_files = [
     f"src/{project_name}/entity/__init__.py",
     f"src/{project_name}/constants/__init__.py",
     "config/config.yaml",
-    "dvc.yaml"
+    "dvc.yaml",
     "params.yaml",
-    "requirements.txt",
+    "requirement.txt",
+    
     "setup.py",
-    "research/trails.ipynb" 
-    "templates/index.html"  
+    "research/trails.ipynb",
+    "templates/index.html",
+     
      
 ]
 
@@ -33,17 +35,16 @@ for filepath in list_of_files:
     filename = filepath1.name
 
 
-    if not filedir.exists:
+    if not filedir.exists():
         path = Path(filedir)
-        path.mkdir(parents=False)
+        path.mkdir(parents=True)
         #os.makedirs(filedir, exist_ok = True)
-        logging.infoo(f"Creating directory; {filedir} for the file: {filename}")
+        logging.info(f"Creating directory; {filedir} for the file: {filename}")
 
-        if(not Path.exists(filepath)) or filepath.stat().st_size == 0:
-            with open(filepath, "w") as f:
-                pass
-            logging.info(f"Creating empty file: {filepath}")
-
-
-        else:
+    if (filepath1.exists()):
+        if (filepath1.stat().st_size == 0):
             logging.info(f"{filename} is already exists")
+    else:
+        with open(filename, "w") as f:
+            pass
+        logging.info(f"Creating empty file: {filename}")
