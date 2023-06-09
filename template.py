@@ -1,4 +1,4 @@
-import OS
+#import OS
 from pathlib import Path
 import logging
 
@@ -22,20 +22,24 @@ list_of_files = [
     "params.yaml",
     "requirements.txt",
     "setup.py",
-    "research/trails.ipynb"   
+    "research/trails.ipynb" 
+    "templates/index.html"  
      
 ]
 
 for filepath in list_of_files:
-    filepath = Path(filepath)
-    filedir, filename = os.path.split(filepath)
+    filepath1 = Path(filepath)
+    filedir = filepath1.parent
+    filename = filepath1.name
 
 
-    if filedir != "":
-        os.makedirs(filedir, exist_ok = True)
+    if not filedir.exists:
+        path = Path(filedir)
+        path.mkdir(parents=False)
+        #os.makedirs(filedir, exist_ok = True)
         logging.infoo(f"Creating directory; {filedir} for the file: {filename}")
 
-        if(not os.path.exista(filepath)) or (os.path.getsize(filepath) == 0 ):
+        if(not Path.exists(filepath)) or filepath.stat().st_size == 0:
             with open(filepath, "w") as f:
                 pass
             logging.info(f"Creating empty file: {filepath}")
