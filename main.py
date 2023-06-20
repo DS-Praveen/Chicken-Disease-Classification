@@ -5,7 +5,7 @@ sys.path.append('./src')
 from cnnClassifier import logger
 from cnnClassifier.pipeline.stg_01_data_ingestion import DataIngestionTrainingPipeline
 from cnnClassifier.pipeline.stg_02_prepare_base_model import PrepareBaseModelTrainingPipeline
-
+from cnnClassifier.pipeline.stg_03_training import ModelTrainingPipeline
 
 logger.info("Welcome to the custome log")
 
@@ -30,6 +30,18 @@ try:
     prepare_base_model = PrepareBaseModelTrainingPipeline()
     prepare_base_model.main()
     logger.info(f">>>>>> Stage {STAGE_NAME} Completed <<<<<<\n\nX=================X")
+except Exception as e:
+    logger.exception(e)
+    raise e
+
+
+STAGE_NAME = "Training"
+try:
+    logger.info(f"************************************")
+    logger.info(f">>>>>>> Stage {STAGE_NAME} Started <<<<<<<<")
+    model_trainer = ModelTrainingPipeline()
+    model_trainer.main()
+    logger.info(f">>>>>>>>>>>> Stage {STAGE_NAME} Completed <<<<<<< \n\nX================X")
 except Exception as e:
     logger.exception(e)
     raise e
